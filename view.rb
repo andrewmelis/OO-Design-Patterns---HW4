@@ -11,29 +11,48 @@ class View
     @model.add_observer(self)
   end
 
-  def update (position)
-    show_traffic(position)
-    show_pedestrian(position)
-    end_instructions
+  def update(position)
+    show(position)
   end
 
-  def show_traffic(position)
+  def show(position)
+    raise "can't call method in abstract view class"
+  end
+
+end
+
+class TrafficView < View
+
+  def show(position)
     puts "Traffic Light:"
     puts position[:traffic]
     puts
   end
 
-  def show_pedestrian(position)
+end
+
+class PedestrianView < View
+
+  def show(position)
     puts "Pedestrian Light:"
     puts position[:pedestrian]
     puts
   end
 
-  def next_instructions
+end
+
+#subclass of view not completely necessary in this case,
+#but could be used to set the text in instructions
+#in many other cases
+class InstructionView < View
+
+  def self.next_instructions
     puts "\n\nPress the <ENTER> key to change the light"
   end
 
-  def end_instructions
+  def self.end_instructions
     puts "(press ctrl+c to end the program)"
   end
+ 
 end
+

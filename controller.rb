@@ -6,11 +6,11 @@ class Controller
   #no need to make these setters(ie accessors) in this assignment
   attr_reader :model, :view
 
-  def initialize(model, view)
+  def initialize(model, instruction_view) 
     @model = model
     @model.add_observer(self)
 
-    @view = view
+    @view = instruction_view
   end
 
   def update(*args)
@@ -18,6 +18,7 @@ class Controller
   end
 
   def handle_event
+    view.end_instructions
     view.next_instructions
     gets
     @model.next
